@@ -11,7 +11,7 @@
         
         public CreditCardApplicationEvaluator(IFrequentFlyerNumberValidator validator)
         {
-            this.validator = validator;
+            this.validator = validator ?? throw new System.ArgumentNullException(nameof(validator));
         }
 
         public CreditCardApplicationDecision Evaluate(CreditCardApplication application)
