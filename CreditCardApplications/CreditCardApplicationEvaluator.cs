@@ -16,10 +16,18 @@
 
         public CreditCardApplicationDecision Evaluate(CreditCardApplication application)
         {
+            /*As written, this method will early return if the Frequent Flyer Number is invalid
+             */
+
             if (application.GrossAnnualIncome >= HighIncomeThreshold)
             {
                 return CreditCardApplicationDecision.AutoAccepted;
             }
+            if(validator.ServiceInformation.License.LicenseKey == "EXPIRED")
+            {
+                return CreditCardApplicationDecision.ReferredToHuman;
+            }
+
             var isValidFrequentFlyerNumber = validator.IsValid(application.FrequentFlyerNumber);
             if (!isValidFrequentFlyerNumber)
             {
@@ -38,6 +46,7 @@
 
             return CreditCardApplicationDecision.ReferredToHuman;
         }
+        /*
         public CreditCardApplicationDecision EvaluateUsingOut(CreditCardApplication application)
         {
             if (application.GrossAnnualIncome >= HighIncomeThreshold)
@@ -64,5 +73,6 @@
 
             return CreditCardApplicationDecision.ReferredToHuman;
         }
+        */
     }
 }
